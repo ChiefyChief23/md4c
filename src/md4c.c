@@ -5783,8 +5783,9 @@ md_is_container_mark(MD_CTX* ctx, unsigned indent, OFF beg, OFF* p_end, MD_CONTA
                 return FALSE;
             }
 
+            p_container->start &= ~(MD_FLAG_OL_UPPERCASE | MD_FLAG_OL_LOWERCASE);
             p_container->start = p_container->start * 26 + CH(off) - (ISUPPER(off) ? _T('@') : _T('`'));
-            p_container->start |= ISUPPER(off) ? MD_FLAG_OL_UPPERCASE : MD_FLAG_OL_LOWERCASE;
+            p_container->start |= (ISUPPER(off) ? MD_FLAG_OL_UPPERCASE : MD_FLAG_OL_LOWERCASE);
         }
 
         off++;
