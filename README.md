@@ -1,3 +1,14 @@
+# Fork Changes
+
+This fork includes the changes required to allow for ordered lists that start
+with lower case or upper case letters. 
+
+The consecutive number of allowed letters is limited to 2 to reduce the 
+likelihood of a single word sentence to trigger an ordered list. The maximum 
+value of 2 letters at Base26 is 702 which should cover most cases. If you 
+need a higher value then either fork this or question the size of your list.
+
+---
 
 # MD4C Readme
 
