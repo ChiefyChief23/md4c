@@ -5775,8 +5775,18 @@ md_is_container_mark(MD_CTX* ctx, unsigned indent, OFF beg, OFF* p_end, MD_CONTA
     if(max_end > ctx->size)
         max_end = ctx->size;
     p_container->start = 0;
-    while(off < max_end  &&  ISDIGIT(off)) {
-        p_container->start = p_container->start * 10 + CH(off) - _T('0');
+    while(off < max_end && (ISDIGIT(off) || ISALPHA(off))) {
+        if (ISDIGIT(off))
+            p_container->start = p_container->start * 10 + CH(off) - _T('0');
+        if (ISALPHA(off)) {
+            if (2 <= off - beg) { // Allow only a maximum of 2 letters, which should cover 99.99999999% of cases
+                return FALSE;
+            }
+
+            p_container->start = p_container->start * 26 + CH(off) - (ISUPPER(off) ? _T('@') : _T('`'));
+            p_container->start |= ISUPPER(off) ? MD_FLAG_OL_UPPERCASE : MD_FLAG_OL_LOWERCASE;
+        }
+
         off++;
     }
     if(off > beg  &&

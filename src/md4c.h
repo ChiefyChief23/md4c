@@ -47,6 +47,9 @@
 typedef unsigned MD_SIZE;
 typedef unsigned MD_OFFSET;
 
+/* Flags for different types of ordered lists. */
+#define MD_FLAG_OL_UPPERCASE (1 << 31)
+#define MD_FLAG_OL_LOWERCASE (1 << 30)
 
 /* Block represents a part of document hierarchy structure like a paragraph
  * or list item.

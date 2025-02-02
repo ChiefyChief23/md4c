@@ -276,7 +276,14 @@ render_open_ol_block(MD_HTML* r, const MD_BLOCK_OL_DETAIL* det)
         return;
     }
 
-    snprintf(buf, sizeof(buf), "<ol start=\"%u\">\n", det->start);
+    if (det->start & MD_FLAG_OL_UPPERCASE) {
+        snprintf(buf, sizeof(buf), "<ol type=\"A\" start=\"%u\">\n", det->start & ~MD_FLAG_OL_UPPERCASE);
+    } else if (det->start & MD_FLAG_OL_LOWERCASE) {
+        snprintf(buf, sizeof(buf), "<ol type=\"a\" start=\"%u\">\n", det->start & ~MD_FLAG_OL_LOWERCASE);
+    } else {
+        snprintf(buf, sizeof(buf), "<ol start=\"%u\">\n", det->start);
+    }
+
     RENDER_VERBATIM(r, buf);
 }
 
